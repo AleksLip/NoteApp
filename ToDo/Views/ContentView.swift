@@ -20,11 +20,10 @@ struct ContentView: View {
         List {
             TextField("Search", text: $searchString)
             Section {
-                ForEach(listViewModel.myNote) { index in
-                    NavigationLink(index.title) {
+                ForEach(listViewModel.allMyNotes) { index in
+                    NavigationLink(index.noteText) {
                         NoteView(noteItem: index)
                     }
-                    
                 }
                 .onDelete(perform: listViewModel.deleteNote)
                 .onMove(perform: listViewModel.moveNote)
@@ -43,12 +42,13 @@ struct ContentView: View {
             
         }
     }
+}
     
     //    func deleteNote(at offsets: IndexSet) {
     //        guard let index = Array(offsets).first else { return }
     //        myNote.remove(at: index)
     
-}
+//}
 
 
 

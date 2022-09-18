@@ -15,9 +15,9 @@ import Foundation
 //
 //}
 
-struct Notes: Identifiable, Codable {
+struct Note: Identifiable, Codable {
     let id: String
-    let title: String
+    var title: String
     var noteText: String
     
     init(id:String = UUID().uuidString, title: String, noteText: String) {
@@ -25,8 +25,8 @@ struct Notes: Identifiable, Codable {
         self.title = title
         self.noteText = noteText
     }
-    func updateNote() -> Notes {
-        return Notes(id: id, title: title, noteText: noteText)
+    func updateNote() -> Note {
+        return Note(id: id, title: title, noteText: noteText)
     }
     
 }

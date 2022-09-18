@@ -10,7 +10,8 @@ import SwiftUI
 struct NoteView: View {
     
     @EnvironmentObject var listViewModel: ListViewModel
-    @State var noteItem: Notes
+    @State var noteItem: Note
+    
     
     var body: some View {
         
@@ -19,6 +20,7 @@ struct NoteView: View {
                 TextField("Note", text: $noteItem.noteText)
                     .padding()
                     .clipped()
+                    
             } header: {
                 if (noteItem.noteText.count >= 1) {
                     Text(noteItem.noteText)
@@ -28,12 +30,15 @@ struct NoteView: View {
                 }
             }
         }
+        .onChange(of: noteItem.noteText) { item in
+            listViewModel.updateNotes(item: noteItem)
+        }
     }
 }
     
 
 struct NoteView_Previews: PreviewProvider {
-    static var noteItem1 = Notes(title: "Your Note", noteText: "")
+    static var noteItem1 = Note(title: "Text", noteText: "Text")
     static var previews: some View {
         NavigationView {
             NoteView(noteItem: noteItem1)

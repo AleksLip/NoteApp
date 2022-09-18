@@ -8,12 +8,12 @@
 import Foundation
 
 class ListViewModel: ObservableObject {
-    @Published var myNote: [Notes] = [] {
+    @Published var allMyNotes: [Note] = [] {
         
-        // Any time myNote is changed, the code below runs
+        // Any time allMyNotes is changed, the code below runs
         
         didSet {
-            saveNotes()
+            saveAllMyNotes()
         }
     }
     let noteKey: String = "notes_list"
@@ -26,10 +26,10 @@ class ListViewModel: ObservableObject {
         
         guard
             let data = UserDefaults.standard.data(forKey: noteKey),
-            let savedNotes = try? JSONDecoder().decode([Notes].self, from: data)
+            let savedNotes = try? JSONDecoder().decode([Note].self, from: data)
         else { return }
         
-        self.myNote = savedNotes
+        self.allMyNotes = savedNotes
         
 //        let newItems = [
 //            Notes(title: "Note 1", noteText: ""),
@@ -39,26 +39,27 @@ class ListViewModel: ObservableObject {
     }
     
     func deleteNote(indexSet: IndexSet) {
-        myNote.remove(atOffsets: indexSet)
+        allMyNotes.remove(atOffsets: indexSet)
     }
 
     func moveNote(from: IndexSet, to: Int) {
-        myNote.move(fromOffsets: from, toOffset: to)
+        allMyNotes.move(fromOffsets: from, toOffset: to)
     }
     
     func addNote() {
-        let newNote = Notes(title: "Your Note", noteText: "")
-        myNote.append(newNote)
+        let newNote = Note(title: "Your Note", noteText: "")
+        allMyNotes.append(newNote)
     }
     
-    func updateNotes(item: Notes) {
-        if let index = myNote.firstIndex(where: { $0.id == item.id}) {
-            myNote[index] = item.updateNote()
+    func updateNotes(item: Note) {
+        
+        if let index = allMyNotes.firstIndex(where: { $0.id == item.id}) {
+            allMyNotes[index] = item.updateNote()
         }
     }
     
-    func saveNotes() {
-        if let encodedData = try? JSONEncoder().encode(myNote) {
+    func saveAllMyNotes() {
+        if let encodedData = try? JSONEncoder().encode(allMyNotes) {
             UserDefaults.standard.set(encodedData, forKey: noteKey)
         }
     }
