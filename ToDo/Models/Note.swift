@@ -7,22 +7,20 @@
 
 import Foundation
 
-//class MyNotes: ObservableObject {
-//    @Published var notes: [Notes] = [
-//        Notes(title: "", noteText: ""),
-//        Notes(title: "", noteText: "")
-//    ]
-//
-//}
-
 struct Note: Identifiable, Codable {
     let id: String
-    var title: String
+    var title: String {
+        if noteText.isEmpty {
+            return "Your Note"
+        }
+        else {
+            return noteText
+        }
+    }
     var noteText: String
 
     init(id:String = UUID().uuidString, title: String, noteText: String) {
         self.id = id
-        self.title = title
         self.noteText = noteText
     }
     

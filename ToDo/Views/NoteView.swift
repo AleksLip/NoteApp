@@ -11,7 +11,6 @@ struct NoteView: View {
     
     @EnvironmentObject var listViewModel: ListViewModel
     @State var noteItem: Note
-    //var title = "Notie"
     
     enum FocusField: Hashable {
         case field
@@ -21,18 +20,17 @@ struct NoteView: View {
     var body: some View {
         
         Form {
-            Section(noteItem.noteText.isEmpty ? noteItem.title : noteItem.noteText) {
+            Section(noteItem.title) {
                 TextEditor(text: $noteItem.noteText)
                     .focused($focusedField, equals: .field)
                     .task {
                         self.focusedField = .field
                     }
             }
-        }
-        
-        .onChange(of: noteItem.noteText) { item in
+        }.onChange(of: noteItem.noteText) { item in
             listViewModel.updateNotes(item: noteItem)
         }
+
     }
 }
 

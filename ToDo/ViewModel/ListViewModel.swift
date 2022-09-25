@@ -47,7 +47,7 @@ class ListViewModel: ObservableObject {
     }
     
     func addNote() {
-        let newNote = Note(title: "Your Note", noteText: "")
+        let newNote = Note(title: "", noteText: "")
         allMyNotes.append(newNote)
     }
     

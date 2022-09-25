@@ -21,7 +21,7 @@ struct ContentView: View {
             TextField("Search", text: $searchString)
             Section {
                 ForEach(listViewModel.allMyNotes) { index in
-                    NavigationLink(index.noteText) {
+                    NavigationLink(index.title) {
                         NoteView(noteItem: index)
                     }
                 }
